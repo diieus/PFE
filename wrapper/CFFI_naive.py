@@ -7,7 +7,8 @@ ffibuilder.set_source("_naive",  # name of the output C extension
     #include "naive_eval.c"
 """,
     include_dirs=["../libfes-lite/src"],  # specify the dir for the sources
-    libraries=['feslite'])    # link with the feslite library
+    libraries=['feslite'],    # link with the feslite library
+    extra_compile_args=["-w"]) #avoids the warnings
 
 
 ffibuilder.cdef("""

@@ -7,8 +7,8 @@ ffibuilder.set_source("_wrapper",  # name of the output C extension
     #include "feslite.c"
 """,
     include_dirs=["../libfes-lite/src"],  # specify the dir for the sources
-    libraries=['feslite'])    # link with the feslite library
-
+    libraries=['feslite'],    # link with the feslite library
+    extra_compile_args=["-w"]) #avoids the warnings
 
 ffibuilder.cdef("""
 size_t feslite_solve(size_t, const uint32_t * const, uint32_t *, size_t, bool);

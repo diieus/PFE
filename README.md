@@ -1,11 +1,17 @@
 # Libfes wrapper README file
 ## Install
-Just run ```./script.sh```
+Go to the scripts directory  (```cd scripts/```) and run ```./install.sh```
+
 
 ## Run
-Go in the wrapper directory (```cd wrapper/```) and run the Python scripts CFFI_feslite.py and CFFI_naive.py with ```python3 CFFI_feslite.py``` and ```python3 CFFI_naive.py``` in order to create the libraries *file.so*
+Go to the scripts directory  (```cd scripts/```) and run ```./init.sh``` to init the wrapper
 
-You can now use the main script *wrapper.py* in other Python scripts. For the designated solution, go to the directory *testu* and run it with ```python3 designated.py```
+You can now use the main script *wrapper.py* in other Python scripts.
+
+
+## Tests
+Go to the scripts directory  (```cd scripts/```) and run ```./unit_tests.sh```
+
 
 ## Clean
-To remove libraries and object files, juste run ```./clean.sh```
+Go to the scripts directory  (```cd scripts/```) and run ```./clean_all.sh```
