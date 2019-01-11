@@ -1,0 +1,3 @@
+[submodule "libfes-lite"]
+	path = libfes-lite
+	url = https://github.com/cbouilla/libfes-lite.git
