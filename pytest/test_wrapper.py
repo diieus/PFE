@@ -9,7 +9,25 @@ class WrapperTest(unittest.TestCase):
 
     """Test case used to test the wrapper."""
 
-    def test_designated(self):
+    def test_designated_exists(self):
+        """Test if designated solutions exist."""
+
+        n = 24
+        n_eqs = 24
+        random_seed = 1338
+        rand.mysrand(random_seed)
+        N = 1 + n + n * (n - 1) // 2
+        F = [0]
+        for i in range (1,N):
+            F.append(rand.myrand() & ((1 << n_eqs) - 1))
+        X = rand.myrand() & ((1 << n) - 1)
+
+        F[0] = wrapper.wrapper.naive(n, F, X)
+        self.assertEqual(wrapper.wrapper.naive(n, F, X),0, "not ok - designated solutions does NOT exist")
+
+
+
+    def test_designated_found(self):
         """Test the wrapper on a designated solution."""
 
         n = 24
@@ -22,8 +40,7 @@ class WrapperTest(unittest.TestCase):
             F.append(rand.myrand() & ((1 << n_eqs) - 1))
         X = rand.myrand() & ((1 << n) - 1)
 
-        F[0] = wrapper.wrapper.naive(n, F, X);
-        self.assertEqual(wrapper.wrapper.naive(n, F, X),0, "not ok (0) - designated solutions does NOT exist")
+        F[0] = wrapper.wrapper.naive(n, F, X)
 
         max_solutions = 256
         solutions = []
@@ -35,4 +52,4 @@ class WrapperTest(unittest.TestCase):
                 status = True
                 break
 
-        self.assertTrue(status, "not ok (1) : expected solution NOT found")
+        self.assertTrue(status, "not ok - expected solution NOT found")
