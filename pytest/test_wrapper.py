@@ -2,6 +2,7 @@ import rand
 import sys
 sys.path.append(sys.path[0] + "/..")
 import wrapper.wrapper
+import wrapper.naive
 import unittest
 
 
@@ -22,8 +23,8 @@ class WrapperTest(unittest.TestCase):
             F.append(rand.myrand() & ((1 << n_eqs) - 1))
         X = rand.myrand() & ((1 << n) - 1)
 
-        F[0] = wrapper.wrapper.naive(n, F, X)
-        self.assertEqual(wrapper.wrapper.naive(n, F, X),0, "not ok - designated solutions does NOT exist")
+        F[0] = wrapper.naive.naive_evaluation(n, F, X)
+        self.assertEqual(wrapper.naive.naive_evaluation(n, F, X),0, "not ok - designated solutions does NOT exist")
 
 
 
@@ -40,7 +41,7 @@ class WrapperTest(unittest.TestCase):
             F.append(rand.myrand() & ((1 << n_eqs) - 1))
         X = rand.myrand() & ((1 << n) - 1)
 
-        F[0] = wrapper.wrapper.naive(n, F, X)
+        F[0] = wrapper.naive.naive_evaluation(n, F, X)
 
         max_solutions = 256
         solutions = []
@@ -53,3 +54,26 @@ class WrapperTest(unittest.TestCase):
                 break
 
         self.assertTrue(status, "not ok - expected solution NOT found")
+
+
+
+    def test_all_sols(self):
+        """Test the wrapper on all solutions."""
+
+        n = 32
+        n_eqs = 32
+        random_seed = 1338
+        rand.mysrand(random_seed)
+        N = 1 + n + n * (n - 1) // 2
+        F = [0]
+        for i in range (1,N):
+            F.append(rand.myrand() & ((1 << n_eqs) - 1))
+        X = rand.myrand() & ((1 << n) - 1)
+
+
+        max_solutions = 256
+        solutions = []
+
+        n_solutions =  wrapper.wrapper.solve(n, F, solutions, max_solutions, 0)
+        for i in range(n_solutions):
+            self.assertEqual(wrapper.naive.naive_evaluation(n, F, solutions[i]), 0, "not ok - all the solutions aren't good")
