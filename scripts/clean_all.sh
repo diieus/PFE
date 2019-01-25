@@ -1,15 +1,15 @@
 ### Clean everything ###
 
 cd ../wrapper/
-py3clean .
+rm -rf __pycache__
 rm -f _*
 cd -
 
 cd ../timetests/
-py3clean .
+rm -rf __pycache__
 rm -f _*
 cd -
 
 cd ../pytest/
-py3clean .
+rm -rf __pycache__
 cd -

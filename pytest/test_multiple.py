@@ -13,9 +13,12 @@ class MultipleTest(unittest.TestCase):
     def test_mult_temp(self):
         """Test"""
 
+#        n = 35
+#        n_eqs = 35
+#        random_seed = 13385474
         n = 35
         n_eqs = 35
-        random_seed = 13385474
+        random_seed = 123385474
         rand.mysrand(random_seed)
         N = 1 + n + n * (n - 1) // 2
         F = [0]
@@ -45,9 +48,12 @@ class MultipleTest(unittest.TestCase):
     def test_mult_truc(self):
         """Test"""
 
-        n = 34
-        n_eqs = 34
-        random_seed = 133854
+#        n = 34
+#        n_eqs = 34
+#        random_seed = 133854
+        n = 35
+        n_eqs = 35
+        random_seed = 21335854
         rand.mysrand(random_seed)
         N = 1 + n + n * (n - 1) // 2
         F = [0]

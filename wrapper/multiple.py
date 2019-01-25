@@ -75,6 +75,6 @@ def multiple_solve(n, T, sols, max_solutions, verbose):
                 inter = set(s).intersection(inter)
             #print(f"wo shift : {[x for x in list(inter)]}")
             sols += [x + (e[1] << 32) for x in list(inter)] # ??? shift not good...
-            #print(f"sols add when e[1] is {e[1]}")
+            print(f"sols add when e[1] is {e[1]} : {sols}")
 
     return len(sols)
