@@ -5,6 +5,7 @@ import wrapper.multiple
 import wrapper.naive
 import unittest
 
+import time
 
 class MultipleTest(unittest.TestCase):
 
@@ -51,9 +52,9 @@ class MultipleTest(unittest.TestCase):
 #        n = 34
 #        n_eqs = 34
 #        random_seed = 133854
-        n = 35
-        n_eqs = 35
-        random_seed = 21335854
+        n = 36
+        n_eqs = 36
+        random_seed = 213358544
         rand.mysrand(random_seed)
         N = 1 + n + n * (n - 1) // 2
         F = [0]
@@ -65,7 +66,9 @@ class MultipleTest(unittest.TestCase):
         status = False
         F[0] = wrapper.naive.naive_evaluation(n, F, X)
         T = wrapper.multiple.multiple_parser(n, F[:])
+        deb = time.time()
         n_solutions = wrapper.multiple.multiple_solve(n, T, solutions, max_solutions, 0)
+        print(f"Time for solver is {time.time() - deb}")
         print(solutions)
         print(X)
         for i in range(n_solutions):

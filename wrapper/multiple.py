@@ -58,7 +58,7 @@ def multiple_parser(n, F):
     return stack
 
 
-def multiple_solve(n, T, sols, max_solutions, verbose):
+def multiple_solve_not_par(n, T, sols, max_solutions, verbose):
     """
     Solves 32 + k variables 32 + k' equations system.
     """
@@ -78,3 +78,39 @@ def multiple_solve(n, T, sols, max_solutions, verbose):
             print(f"sols add when e[1] is {e[1]} : {sols}")
 
     return len(sols)
+
+
+import multiprocessing as mp
+PROC = 4
+
+def multiple_solve(n, T, sols, max_solutions, verbose):
+    """
+    Solves 32 + k variables 32 + k' equations system with multiprocessing.
+    """
+    n_eqs = max([max([a.bit_length() for a in B[0]]) for B in T])
+    global PROC
+    pool = mp.Pool(processes=PROC)
+    number_sols = [pool.apply_async(multiproc_solver, args=(n_eqs, n, e, max_solutions, verbose)) for e in T]
+    output = [p.get() for p in number_sols]
+    sum_sols = []
+    for e in output:
+        sols += e[0]
+        sum_sols.append(e[1])
+    return(sum(sum_sols))
+
+def multiproc_solver(n_eqs, n, e, max_solutions, verbose):
+    sols = []
+    solutions = ffi.new("uint32_t []", [42] * max_solutions)
+
+    SOLS = []
+    for i in range(0, 1 + n_eqs - 32):
+        n_solutions = wlib.feslite_solve(32, shift(e[0],i), solutions, max_solutions, verbose)
+        SOLS.append(solutions[0:n_solutions])
+    if SOLS != []:
+        inter = SOLS[0]
+        for s in SOLS:
+            inter = set(s).intersection(inter)
+        sols += [x + (e[1] << 32) for x in list(inter)] # ??? shift not good...
+        print(f"sols add when e[1] is {e[1]} : {sols}")
+
+    return (sols,len(sols))
